@@ -1,0 +1,4 @@
+hostname: chubbyphp-api-slim-skeleton.dev 
+application: slim3
+network:
+    ip: 10.132.131.130
