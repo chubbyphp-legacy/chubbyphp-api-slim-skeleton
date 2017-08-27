@@ -39,7 +39,7 @@ final class CourseMapping implements ObjectMappingInterface
             new PropertyMapping('level'),
             new PropertyMapping('progress'),
             new PropertyMapping('active'),
-            new PropertyMapping('documents', new PropertyModelCollectionDeserializer(Document::class)),
+            new PropertyMapping('documents', new PropertyModelCollectionDeserializer(Document::class, true)),
         ];
     }
 }
