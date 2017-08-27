@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Chubbyphp\ApiSkeleton\Validation;
 
+use Chubbyphp\ApiSkeleton\Model\Document;
+use Chubbyphp\Model\Collection\ModelCollectionInterface;
 use Chubbyphp\Model\ResolverInterface;
+use Chubbyphp\Validation\Constraint\CallbackConstraint;
 use Chubbyphp\Validation\Constraint\ChoiceConstraint;
 use Chubbyphp\Validation\Constraint\ConstraintInterface;
 use Chubbyphp\Validation\Constraint\NotBlankConstraint;
 use Chubbyphp\Validation\Constraint\NotNullConstraint;
 use Chubbyphp\Validation\Constraint\NumericConstraint;
 use Chubbyphp\Validation\Constraint\NumericRangeConstraint;
+use Chubbyphp\Validation\Error\Error;
 use Chubbyphp\Validation\Mapping\ObjectMappingInterface;
 use Chubbyphp\Validation\Mapping\PropertyMapping;
 use Chubbyphp\Validation\Mapping\PropertyMappingInterface;
@@ -69,7 +73,32 @@ final class CourseMapping implements ObjectMappingInterface
                 new NumericRangeConstraint(0, 1),
             ]),
             new PropertyMapping('active', [new NotNullConstraint(), new NotBlankConstraint()]),
-            new PropertyMapping('documents', [new ModelCollectionConstraint()]),
+            new PropertyMapping('documents', [
+                new ModelCollectionConstraint(),
+                new CallbackConstraint(function (string $path, $collection) {
+                    if (!$collection instanceof ModelCollectionInterface) {
+                        return [];
+                    }
+
+                    $names = [];
+                    foreach ($collection->getModels() as $document) {
+                        /** @var Document $document */
+                        if (isset($names[$document->getName()])) {
+                            return [
+                                new Error(
+                                    $path.'[_all]',
+                                    'constraint.uniquemodel.notunique',
+                                     ['uniqueProperties' => 'name']
+                                ),
+                            ];
+                        }
+
+                        $names[$document->getName()] = true;
+                    }
+
+                    return [];
+                }),
+            ]),
         ];
     }
 }

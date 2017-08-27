@@ -12,7 +12,6 @@ use Chubbyphp\Validation\Mapping\ObjectMappingInterface;
 use Chubbyphp\Validation\Mapping\PropertyMapping;
 use Chubbyphp\Validation\Mapping\PropertyMappingInterface;
 use Chubbyphp\ApiSkeleton\Model\Document;
-use Chubbyphp\ValidationModel\Constraint\UniqueModelConstraint;
 
 final class DocumentMapping implements ObjectMappingInterface
 {
@@ -42,7 +41,7 @@ final class DocumentMapping implements ObjectMappingInterface
      */
     public function getConstraints(): array
     {
-        return [new UniqueModelConstraint($this->resolver, ['courseId', 'name'])];
+        return [];
     }
 
     /**
