@@ -23,13 +23,11 @@ A slim 3 skeleton to build web apis.
  * [chubbyphp/chubbyphp-translation][8]: ^1.1.2
  * [chubbyphp/chubbyphp-validation][9]: ~2.1
  * [chubbyphp/chubbyphp-validation-model][10]: ~1.0
- * [monolog/monolog][11]: ~1.21
- * [ramsey/uuid][12]: ~3.5
- * [silex/providers][13]: ^2.0.3
- * [slim/slim][14]: ~3.5
- * [symfony/console][15]: ~3.1
- * [symfony/yaml][16]: ~3.1
- * [willdurand/negotiation][17]: ^2.3
+ * [monolog/monolog][11]: ~1.5
+ * [silex/providers][12]: ^2.0.3
+ * [slim/slim][13]: ~3.0
+ * [symfony/console][14]: ~3.0|~2.8
+ * [symfony/yaml][15]: ~3.0|~2.8
 
 ## Installation
 
@@ -37,7 +35,7 @@ A slim 3 skeleton to build web apis.
 
 #### Install `create-slim3-project` command
 
-[create-slim3-project][18]
+[create-slim3-project][16]
 
 #### Create project
 
@@ -76,10 +74,8 @@ bin/console chubbyphp:model:dbal:database:schema:update --dump --force
 [9]: https://github.com/chubbyphp/chubbyphp-validation
 [10]: https://github.com/chubbyphp/chubbyphp-validation-model
 [11]: https://github.com/Seldaek/monolog
-[12]: https://github.com/ramsey/uuid
-[13]: https://github.com/silexphp/Silex-Providers
-[14]: https://github.com/slimphp/Slim
-[15]: https://github.com/symfony/console
-[16]: https://github.com/symfony/yaml
-[17]: https://github.com/willdurand/negotiation
-[18]: https://github.com/vagrant-php/create-slim3-project
+[12]: https://github.com/silexphp/Silex-Providers
+[13]: https://github.com/slimphp/Slim
+[14]: https://github.com/symfony/console
+[15]: https://github.com/symfony/yaml
+[16]: https://github.com/vagrant-php/create-slim3-project
