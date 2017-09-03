@@ -2,7 +2,7 @@
 
 use Slim\Container;
 
-/** @var Pimple\Container $container */
+/** @var Container $container */
 
 return [
     'settings' => [
