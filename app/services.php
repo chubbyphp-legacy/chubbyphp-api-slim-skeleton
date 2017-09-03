@@ -21,10 +21,6 @@ $container->register(new TranslationProvider());
 $container->register(new SwiftmailerServiceProvider());
 
 // extend providers
-$container['api-http.request.languages'] = function () use ($container) {
-    return $container['languages'];
-};
-
 $container['api-http.response.factory'] = function () {
     return new ResponseFactory();
 };

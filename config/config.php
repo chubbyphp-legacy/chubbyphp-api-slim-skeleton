@@ -1,5 +1,7 @@
 <?php
 
+use Slim\Container;
+
 /** @var Pimple\Container $container */
 
 return [
@@ -13,6 +15,19 @@ return [
         'routerCacheFile' => $container['cacheDir'].'/routes.php',
     ],
     'projectSettings' => [
+        'api-http.request.accepted' => [
+            'application/json',
+            'application/x-www-form-urlencoded',
+            'application/xml',
+            'application/x-yaml',
+        ],
+        'api-http.request.acceptedLanguages' => ['de', 'en'],
+        'api-http.request.contentTypes' => [
+            'application/json',
+            'application/x-www-form-urlencoded',
+            'application/xml',
+            'application/x-yaml',
+        ],
         'db.options' => [
             'driver' => 'pdo_mysql',
             'host' => 'localhost',
@@ -24,7 +39,6 @@ return [
         ],
         'debug' => false,
         'defaultLanguage' => 'en',
-        'languages' => ['de', 'en'],
         'monolog.logfile' => $container['logDir'].'/application-'.(new \DateTime())->format('Y-m-d').'.log',
         'monolog.level' => 'notice',
         'swiftmailer.options' => [
