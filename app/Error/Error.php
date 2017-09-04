@@ -51,14 +51,14 @@ final class Error
      * @param string      $key
      * @param string|null $detail
      * @param string|null $reference
-     * @param array|null  $arguments
+     * @param array       $arguments
      */
     public function __construct(
         string $scope,
         string $key,
         string $detail = null,
         string $reference = null,
-        array $arguments = null
+        array $arguments = []
     ) {
         $this->scope = $scope;
         $this->key = $key;

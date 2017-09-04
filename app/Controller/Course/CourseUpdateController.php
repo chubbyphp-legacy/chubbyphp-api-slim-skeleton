@@ -98,7 +98,11 @@ final class CourseUpdateController
         $course = $this->requestManager->getDataFromRequestBody($request, $course, $contentType);
 
         if (null === $course) {
-            return $this->responseManager->createResponse($request, 400);
+            return $this->responseManager->createResponse(
+                $request,
+                400,
+                $this->errorManager->createNotParsable('course', $contentType, (string) $request->getBody())
+            );
         }
 
         if ([] !== $errors = $this->validator->validateObject($course)) {

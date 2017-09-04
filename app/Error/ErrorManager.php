@@ -61,4 +61,21 @@ class ErrorManager
             $nestedErrorMessage->getMessages()
         );
     }
+
+    /**
+     * @param string $type
+     * @param string $contentType
+     * @param string $body
+     * @return Error
+     */
+    public function createNotParsable(string $type, string $contentType, string $body): Error
+    {
+         return new Error(
+            Error::SCOPE_BODY,
+            'notparsable',
+            'request body not parsable',
+            $type,
+            ['body' => $body, 'contentType' => $contentType]
+         );
+    }
 }

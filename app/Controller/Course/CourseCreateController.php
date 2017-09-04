@@ -85,7 +85,11 @@ final class CourseCreateController
         $course = $this->requestManager->getDataFromRequestBody($request, Course::class, $contentType);
 
         if (null === $course) {
-            return $this->responseManager->createResponse($request, 400);
+            return $this->responseManager->createResponse(
+                $request,
+                400,
+                $this->errorManager->createNotParsable('course', $contentType, (string) $request->getBody())
+            );
         }
 
         if ([] !== $errors = $this->validator->validateObject($course)) {
