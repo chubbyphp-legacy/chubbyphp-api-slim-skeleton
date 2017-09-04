@@ -77,11 +77,15 @@ final class CourseCreateController
      */
     public function __invoke(Request $request): Response
     {
+        if (null === $contentType = $this->requestManager->getContentType($request)) {
+            return $this->responseManager->createResponse($request, 415);
+        }
+
         /** @var Course $course */
-        $course = $this->requestManager->getDataFromRequestBody($request, Course::class);
+        $course = $this->requestManager->getDataFromRequestBody($request, Course::class, $contentType);
 
         if (null === $course) {
-            return $this->responseManager->createResponse($request, 415);
+            return $this->responseManager->createResponse($request, 400);
         }
 
         if ([] !== $errors = $this->validator->validateObject($course)) {
