@@ -13,16 +13,16 @@ A slim 3 skeleton to build web apis.
 ## Requirements
 
  * php: ~7.0
- * [chubbyphp/chubbyphp-api-http][1]: ~1.0@beta
- * [chubbyphp/chubbyphp-deserialization][2]: ~1.1
- * [chubbyphp/chubbyphp-deserialization-model][3]: ~1.0
+ * [chubbyphp/chubbyphp-api-http][1]: ~1.0@beta>=1.0-beta9
+ * [chubbyphp/chubbyphp-deserialization][2]: ^1.1.1
+ * [chubbyphp/chubbyphp-deserialization-model][3]: ~1.1
  * [chubbyphp/chubbyphp-lazy][4]: ~1.1
- * [chubbyphp/chubbyphp-model][5]: ~3.0
- * [chubbyphp/chubbyphp-model-doctrine-dbal][6]: ~1.0
- * [chubbyphp/chubbyphp-serialization][7]: ^1.0.1
+ * [chubbyphp/chubbyphp-model][5]: ^3.0.1
+ * [chubbyphp/chubbyphp-model-doctrine-dbal][6]: ^1.0.2
+ * [chubbyphp/chubbyphp-serialization][7]: ^1.0.2
  * [chubbyphp/chubbyphp-translation][8]: ^1.1.2
  * [chubbyphp/chubbyphp-validation][9]: ~2.1
- * [chubbyphp/chubbyphp-validation-model][10]: ~1.0
+ * [chubbyphp/chubbyphp-validation-model][10]: ^1.0.2
  * [monolog/monolog][11]: ~1.5
  * [ramsey/uuid][12]: 2.0
  * [silex/providers][13]: ^2.0.3
