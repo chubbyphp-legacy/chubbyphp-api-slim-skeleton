@@ -88,7 +88,7 @@ final class CourseSearchController
                 $this->errorManager->createByValidationErrors(
                     $errors,
                     $this->requestManager->getAcceptLanguage($request, $this->defaultLanguage),
-                    Error::SCOPE_BODY,
+                    Error::SCOPE_QUERY,
                     Course::class
                 )
             );
