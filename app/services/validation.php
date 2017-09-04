@@ -50,5 +50,5 @@ $container[CourseSearchMapping::class] = function () {
 };
 
 $container[DocumentMapping::class] = function () use ($container) {
-    return new DocumentMapping($container[Resolver::class]);
+    return new DocumentMapping();
 };

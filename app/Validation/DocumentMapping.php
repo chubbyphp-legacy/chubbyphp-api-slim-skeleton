@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Chubbyphp\ApiSkeleton\Validation;
 
-use Chubbyphp\Model\ResolverInterface;
 use Chubbyphp\Validation\Constraint\ConstraintInterface;
 use Chubbyphp\Validation\Constraint\NotBlankConstraint;
 use Chubbyphp\Validation\Constraint\NotNullConstraint;
@@ -15,19 +14,6 @@ use Chubbyphp\ApiSkeleton\Model\Document;
 
 final class DocumentMapping implements ObjectMappingInterface
 {
-    /**
-     * @var ResolverInterface
-     */
-    private $resolver;
-
-    /**
-     * @param ResolverInterface $resolver
-     */
-    public function __construct(ResolverInterface $resolver)
-    {
-        $this->resolver = $resolver;
-    }
-
     /**
      * @return string
      */
