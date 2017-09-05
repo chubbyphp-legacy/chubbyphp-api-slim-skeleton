@@ -3,7 +3,7 @@
   "type": "project",
   "require": {
     "php": "~7.0",
-    "chubbyphp/chubbyphp-api-http": "~1.0@beta,>=1.0-beta12",
+    "chubbyphp/chubbyphp-api-http": "~1.0@beta,>=1.0-beta13",
     "chubbyphp/chubbyphp-deserialization": "^1.1.1",
     "chubbyphp/chubbyphp-deserialization-model": "~1.1",
     "chubbyphp/chubbyphp-lazy": "~1.1",
