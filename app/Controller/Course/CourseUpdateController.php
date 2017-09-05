@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Chubbyphp\ApiSkeleton\Controller\Course;
 
+use Chubbyphp\ApiHttp\Error\Error;
 use Chubbyphp\ApiHttp\Manager\RequestManagerInterface;
 use Chubbyphp\ApiHttp\Manager\ResponseManagerInterface;
 use Chubbyphp\Model\RepositoryInterface;
+use Chubbyphp\Translation\TranslatorInterface;
+use Chubbyphp\Validation\Error\NestedErrorMessages;
 use Chubbyphp\Validation\ValidatorInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Chubbyphp\ApiSkeleton\Error\Error;
-use Chubbyphp\ApiSkeleton\Error\ErrorManager;
 use Chubbyphp\ApiSkeleton\Model\Course;
 
 final class CourseUpdateController
@@ -20,11 +21,6 @@ final class CourseUpdateController
      * @var string
      */
     private $defaultLanguage;
-
-    /**
-     * @var ErrorManager
-     */
-    private $errorManager;
 
     /**
      * @var RepositoryInterface
@@ -42,31 +38,36 @@ final class CourseUpdateController
     private $responseManager;
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var ValidatorInterface
      */
     private $validator;
 
     /**
      * @param string                   $defaultLanguage
-     * @param ErrorManager             $errorManager
      * @param RepositoryInterface      $repository
      * @param RequestManagerInterface  $requestManager
      * @param ResponseManagerInterface $responseManager
+     * @param TranslatorInterface      $translator
      * @param ValidatorInterface       $validator
      */
     public function __construct(
         string $defaultLanguage,
-        ErrorManager $errorManager,
         RepositoryInterface $repository,
         RequestManagerInterface $requestManager,
         ResponseManagerInterface $responseManager,
+        TranslatorInterface $translator,
         ValidatorInterface $validator
     ) {
         $this->defaultLanguage = $defaultLanguage;
-        $this->errorManager = $errorManager;
         $this->repository = $repository;
         $this->requestManager = $requestManager;
         $this->responseManager = $responseManager;
+        $this->translator = $translator;
         $this->validator = $validator;
     }
 
@@ -77,49 +78,42 @@ final class CourseUpdateController
      */
     public function __invoke(Request $request): Response
     {
-        $id = $request->getAttribute('id');
-
-        /** @var Course $course */
-        $course = $this->repository->find($id);
-
-        if (null === $course) {
-            return $this->responseManager->createResponse(
-                $request,
-                404,
-                $this->errorManager->createByMissingModel('course', ['id' => $id])
-            );
+        if (null === $accept = $this->requestManager->getAccept($request)) {
+            return $this->responseManager->createAcceptNotSupportedResponse($request);
         }
 
         if (null === $contentType = $this->requestManager->getContentType($request)) {
-            return $this->responseManager->createResponse($request, 415);
+            return $this->responseManager->createContentTypeNotSupportedResponse($request, $accept);
+        }
+
+        $id = $request->getAttribute('id');
+
+        /** @var Course $course */
+        if (null === $course = $this->repository->find($id)) {
+            return $this->responseManager->createResourceNotFoundResponse($request, $accept, 'course', ['id' => $id]);
         }
 
         /** @var Course $course */
-        $course = $this->requestManager->getDataFromRequestBody($request, $course, $contentType);
-
-        if (null === $course) {
-            return $this->responseManager->createResponse(
-                $request,
-                400,
-                $this->errorManager->createNotParsable('course', $contentType, (string) $request->getBody())
-            );
+        if (null === $course = $this->requestManager->getDataFromRequestBody($request, $course, $contentType)) {
+            return $this->responseManager->createBodyNotDeserializableResponse($request, $accept, $contentType);
         }
 
         if ([] !== $errors = $this->validator->validateObject($course)) {
-            return $this->responseManager->createResponse(
+            $locale = $this->requestManager->getAcceptLanguage($request, $this->defaultLanguage);
+
+            return $this->responseManager->createValidationErrorResponse(
                 $request,
-                422,
-                $this->errorManager->createByValidationErrors(
-                    $errors,
-                    $this->requestManager->getAcceptLanguage($request, $this->defaultLanguage),
-                    Error::SCOPE_BODY,
-                    'course'
-                )
+                $accept,
+                Error::SCOPE_BODY,
+                'course',
+                (new NestedErrorMessages($errors, function (string $key, array $arguments) use ($locale) {
+                    return $this->translator->translate($locale, $key, $arguments);
+                }))->getMessages()
             );
         }
 
         $this->repository->persist($course);
 
-        return $this->responseManager->createResponse($request, 200, $course);
+        return $this->responseManager->createResponse($request, 200, $accept, $course);
     }
 }

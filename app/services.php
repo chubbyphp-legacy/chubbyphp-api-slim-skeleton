@@ -10,9 +10,7 @@ use Chubbyphp\Translation\TranslationProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SwiftmailerServiceProvider;
 use Slim\Container;
-use Negotiation\Negotiator as ContentNegotiator;
 use Chubbyphp\ApiSkeleton\ApiHttp\ResponseFactory;
-use Chubbyphp\ApiSkeleton\Error\ErrorManager;
 
 /* @var Container $container */
 $container->register(new ApiHttpProvider());
@@ -49,16 +47,6 @@ require_once __DIR__.'/services/controller.php';
 
 // deserialization
 require_once __DIR__.'/services/deserialization.php';
-
-// error
-$container[ErrorManager::class] = function () use ($container) {
-    return new ErrorManager($container['translator']);
-};
-
-// http
-$container[ContentNegotiator::class] = function () {
-    return new ContentNegotiator();
-};
 
 // repository
 require_once __DIR__.'/services/repository.php';
