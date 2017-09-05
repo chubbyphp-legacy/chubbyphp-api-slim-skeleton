@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Chubbyphp\ApiSkeleton\Serialization;
 
+use Chubbyphp\ApiHttp\Error\Error;
 use Chubbyphp\Serialization\Mapping\FieldMapping;
 use Chubbyphp\Serialization\Mapping\FieldMappingInterface;
 use Chubbyphp\Serialization\Mapping\LinkMappingInterface;
 use Chubbyphp\Serialization\Mapping\ObjectMappingInterface;
-use Chubbyphp\ApiSkeleton\Error\Error;
 
 final class ErrorMapping implements ObjectMappingInterface
 {
