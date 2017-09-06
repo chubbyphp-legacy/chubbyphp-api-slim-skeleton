@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Chubbyphp\ApiSkeleton;
 
+use Chubbyphp\ApiHttp\Error\Error;
 use Chubbyphp\ApiSkeleton\Model\Document;
 use Chubbyphp\ApiSkeleton\Serialization\DocumentMapping;
 use Chubbyphp\Serialization\Mapping\LazyObjectMapping;
 use Chubbyphp\Serialization\Provider\SerializationProvider;
 use Slim\Container;
-use Chubbyphp\ApiSkeleton\Error\Error;
 use Chubbyphp\ApiSkeleton\Model\Course;
 use Chubbyphp\ApiSkeleton\Search\Index;
 use Chubbyphp\ApiSkeleton\Search\CourseSearch;
