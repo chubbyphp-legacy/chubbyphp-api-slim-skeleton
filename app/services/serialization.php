@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chubbyphp\ApiSkeleton;
 
 use Chubbyphp\ApiHttp\Error\Error;
+use Chubbyphp\ApiHttp\Serialization\ErrorMapping;
 use Chubbyphp\ApiSkeleton\Model\Document;
 use Chubbyphp\ApiSkeleton\Serialization\DocumentMapping;
 use Chubbyphp\Serialization\Mapping\LazyObjectMapping;
@@ -13,7 +14,6 @@ use Slim\Container;
 use Chubbyphp\ApiSkeleton\Model\Course;
 use Chubbyphp\ApiSkeleton\Search\Index;
 use Chubbyphp\ApiSkeleton\Search\CourseSearch;
-use Chubbyphp\ApiSkeleton\Serialization\ErrorMapping;
 use Chubbyphp\ApiSkeleton\Serialization\IndexMapping;
 use Chubbyphp\ApiSkeleton\Serialization\LinkGenerator;
 use Chubbyphp\ApiSkeleton\Serialization\CourseMapping;
