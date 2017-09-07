@@ -23,7 +23,7 @@ class PhpServerListener extends BaseTestListener
         $this->killPhpServer();
 
         exec(sprintf(
-            '%s > %s 2>&1 & echo $! >> %s',
+            '%s > %s 2>&1 & echo $! > %s',
             $this->getCommand(),
             $this->getLogFile(),
             $this->getPidFile()
@@ -59,7 +59,7 @@ class PhpServerListener extends BaseTestListener
 
     private function killPhpServer()
     {
-        if (!is_file(self::PHP_SERVER_PIDFILE)) {
+        if (!is_file($this->getPidFile())) {
             return;
         }
 
@@ -76,7 +76,7 @@ class PhpServerListener extends BaseTestListener
      */
     private function getPidFile(): string
     {
-        return sys_get_temp_dir().'/'.self::PHP_SERVER_PIDFILE;
+        return sys_get_temp_dir() . '/' . self::PHP_SERVER_PIDFILE;
     }
 
     /**
@@ -84,6 +84,6 @@ class PhpServerListener extends BaseTestListener
      */
     private function getLogFile(): string
     {
-        return sys_get_temp_dir().'/'.self::PHP_SERVER_LOGFILE;
+        return sys_get_temp_dir() . '/' . self::PHP_SERVER_LOGFILE;
     }
 }
