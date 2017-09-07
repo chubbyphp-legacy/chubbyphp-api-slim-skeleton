@@ -64,8 +64,6 @@ final class CourseSearchMapping implements ObjectMappingInterface
             ),
             new FieldMapping('sort'),
             new FieldMapping('order'),
-            new FieldMapping('_count', new ValueFieldSerializer(new PropertyAccessor('count'))),
-            new FieldMapping('_pages', new ValueFieldSerializer(new PropertyAccessor('pages'))),
         ];
     }
 
@@ -75,6 +73,8 @@ final class CourseSearchMapping implements ObjectMappingInterface
     public function getEmbeddedFieldMappings(): array
     {
         return [
+            new FieldMapping('count'),
+            new FieldMapping('pages'),
             new FieldMapping('courses', new CollectionFieldSerializer(new PropertyAccessor('courses'))),
         ];
     }
@@ -87,7 +87,7 @@ final class CourseSearchMapping implements ObjectMappingInterface
         return [
             new LinkMapping('self', new CallbackLinkSerializer(
                 function (Request $request, CourseSearch $courseSearch, array $fields) {
-                    return $this->linkGenerator->generateLink('course_search', [], $this->getQueryFields($fields));
+                    return $this->linkGenerator->generateLink('course_search', [], $fields);
                 }
             )),
             new LinkMapping('prev', new CallbackLinkSerializer(
@@ -95,7 +95,7 @@ final class CourseSearchMapping implements ObjectMappingInterface
                     if ($courseSearch->getPage() > 1) {
                         $fields['page'] -= 1;
 
-                        return $this->linkGenerator->generateLink('course_search', [], $this->getQueryFields($fields));
+                        return $this->linkGenerator->generateLink('course_search', [], $fields);
                     }
 
                     return new NullLink();
@@ -106,34 +106,17 @@ final class CourseSearchMapping implements ObjectMappingInterface
                     if ($fields['page'] < $courseSearch->getPages()) {
                         $fields['page'] += 1;
 
-                        return $this->linkGenerator->generateLink('course_search', [], $this->getQueryFields($fields));
+                        return $this->linkGenerator->generateLink('course_search', [], $fields);
                     }
 
                     return new NullLink();
                 }
             )),
             new LinkMapping('create', new CallbackLinkSerializer(
-                function () {
+                function (Request $request, CourseSearch $courseSearch, array $fields) {
                     return $this->linkGenerator->generateLink('course_create');
                 }
             )),
         ];
-    }
-
-    /**
-     * @param array $fields
-     *
-     * @return array
-     */
-    private function getQueryFields(array $fields): array
-    {
-        $queryFields = [];
-        foreach ($fields as $key => $value) {
-            if (0 !== strpos($key, '_')) {
-                $queryFields[$key] = $value;
-            }
-        }
-
-        return $queryFields;
     }
 }

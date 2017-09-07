@@ -76,7 +76,7 @@ class PhpServerListener extends BaseTestListener
      */
     private function getPidFile(): string
     {
-        return sys_get_temp_dir() . '/' . self::PHP_SERVER_PIDFILE;
+        return sys_get_temp_dir().'/'.self::PHP_SERVER_PIDFILE;
     }
 
     /**
@@ -84,6 +84,6 @@ class PhpServerListener extends BaseTestListener
      */
     private function getLogFile(): string
     {
-        return sys_get_temp_dir() . '/' . self::PHP_SERVER_LOGFILE;
+        return sys_get_temp_dir().'/'.self::PHP_SERVER_LOGFILE;
     }
 }

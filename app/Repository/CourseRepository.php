@@ -52,7 +52,7 @@ final class CourseRepository extends AbstractRepository
      */
     public function search(CourseSearch $courseSearch): CourseSearch
     {
-        $count = $this->searchCount($courseSearch);
+        $count = $this->searchCount();
 
         $courseSearch->setPages((int) ceil($count / $courseSearch->getPerPage()));
         $courseSearch->setCount($count);
@@ -62,13 +62,11 @@ final class CourseRepository extends AbstractRepository
     }
 
     /**
-     * @param CourseSearch $courseSearch
-     *
      * @return int
      */
-    private function searchCount(CourseSearch $courseSearch): int
+    private function searchCount(): int
     {
-        $qb = $this->prepareSearchQuery($courseSearch);
+        $qb = $this->prepareSearchQuery();
         $qb->select('COUNT(id) AS rowCount');
 
         return (int) $qb->execute()->fetchColumn();
@@ -81,7 +79,7 @@ final class CourseRepository extends AbstractRepository
      */
     private function searchResult(CourseSearch $courseSearch): array
     {
-        $qb = $this->prepareSearchQuery($courseSearch);
+        $qb = $this->prepareSearchQuery();
 
         $perPage = $courseSearch->getPerPage();
 
@@ -102,11 +100,9 @@ final class CourseRepository extends AbstractRepository
     }
 
     /**
-     * @param CourseSearch $courseSearch
-     *
      * @return QueryBuilder
      */
-    private function prepareSearchQuery(CourseSearch $courseSearch): QueryBuilder
+    private function prepareSearchQuery(): QueryBuilder
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->from($this->getTable());

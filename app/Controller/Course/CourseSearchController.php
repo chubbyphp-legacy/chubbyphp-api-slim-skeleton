@@ -92,7 +92,7 @@ final class CourseSearchController
                 $request,
                 $accept,
                 Error::SCOPE_QUERY,
-                'courseSearch',
+                'course-search',
                 (new NestedErrorMessages($errors, function (string $key, array $arguments) use ($locale) {
                     return $this->translator->translate($locale, $key, $arguments);
                 }))->getMessages()
