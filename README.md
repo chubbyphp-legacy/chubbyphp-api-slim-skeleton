@@ -13,7 +13,7 @@ A slim 3 skeleton to build web apis.
 ## Requirements
 
  * php: ~7.0
- * [chubbyphp/chubbyphp-api-http][1]: ~1.0@beta>=1.0-beta9
+ * [chubbyphp/chubbyphp-api-http][1]: ~1.0@beta>=1.0-beta15
  * [chubbyphp/chubbyphp-deserialization][2]: ^1.1.1
  * [chubbyphp/chubbyphp-deserialization-model][3]: ~1.1
  * [chubbyphp/chubbyphp-lazy][4]: ~1.1
