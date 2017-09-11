@@ -66,4 +66,3 @@ bin/console chubbyphp:model:dbal:database:schema:update --dump --force
 [14]: https://github.com/slimphp/Slim
 [15]: https://github.com/symfony/console
 [16]: https://github.com/symfony/yaml
-[17]: https://github.com/vagrant-php/create-slim3-project
