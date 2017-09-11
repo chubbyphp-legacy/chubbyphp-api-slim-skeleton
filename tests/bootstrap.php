@@ -2,6 +2,7 @@
 
 $loader = require __DIR__.'/../vendor/autoload.php';
 $loader->setPsr4('Chubbyphp\Tests\ApiSkeleton\\', __DIR__);
+$loader->setPsr4('Chubbyphp\Tests\Model\Doctrine\DBAL\\', __DIR__.'/../vendor/chubbyphp/chubbyphp-model-doctrine-dbal/tests');
 
 $env = 'test';
 
