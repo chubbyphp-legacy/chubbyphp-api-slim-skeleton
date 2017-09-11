@@ -32,7 +32,7 @@ A slim 3 skeleton to build web apis.
 
 ## Installation
 
-```{.sh}
+```sh
 composer create-project chubbyphp/chubbyphp-api-slim-skeleton myproject dev-master --prefer-dist
 ```
 
@@ -40,13 +40,13 @@ composer create-project chubbyphp/chubbyphp-api-slim-skeleton myproject dev-mast
 
 ### Create database
 
-```{.sh}
+```sh
 bin/console chubbyphp:model:dbal:database:create
 ```
 
 ### Create / Update schema
 
-```{.sh}
+```sh
 bin/console chubbyphp:model:dbal:database:schema:update --dump --force
 ```
 
@@ -58,7 +58,7 @@ bin/console chubbyphp:model:dbal:database:schema:update --dump --force
 
 GET http://chubbyphp-api-slim-skeleton.dev/api
 
-```
+```json
 {
     "_links": {
         "self": {
@@ -78,7 +78,7 @@ GET http://chubbyphp-api-slim-skeleton.dev/api
 
 GET http://chubbyphp-api-slim-skeleton.dev/api
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <meta-type value="index">
     <meta-links>
@@ -100,7 +100,7 @@ GET http://chubbyphp-api-slim-skeleton.dev/api
 
 GET http://chubbyphp-api-slim-skeleton.dev/api/courses?page=1&perPage=1
 
-```
+```json
 {
     "page": 1,
     "perPage": 1,
@@ -160,7 +160,7 @@ GET http://chubbyphp-api-slim-skeleton.dev/api/courses?page=1&perPage=1
 
 GET http://chubbyphp-api-slim-skeleton.dev/api/courses?page=1&perPage=1
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <meta-type value="course-search">
     <page type="integer">1</page>
