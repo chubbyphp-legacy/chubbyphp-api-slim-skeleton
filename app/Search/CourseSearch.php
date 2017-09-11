@@ -23,7 +23,11 @@ final class CourseSearch
      */
     private $sort;
 
-    const SORT = [];
+    const SORT_NAME = 'name';
+
+    const SORT = [
+        self::SORT_NAME,
+    ];
 
     /**
      * @var string
@@ -66,9 +70,9 @@ final class CourseSearch
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
@@ -88,7 +92,7 @@ final class CourseSearch
     /**
      * @return int
      */
-    public function getPerPage()
+    public function getPerPage(): int
     {
         return $this->perPage;
     }
@@ -126,7 +130,7 @@ final class CourseSearch
     }
 
     /**
-     * @return null|string
+     * @return string
      */
     public function getOrder()
     {
@@ -134,11 +138,11 @@ final class CourseSearch
     }
 
     /**
-     * @param null|string $order
+     * @param string $order
      *
      * @return self
      */
-    public function setOrder(string $order = null): self
+    public function setOrder(string $order): self
     {
         $this->order = $order;
 
@@ -155,10 +159,14 @@ final class CourseSearch
 
     /**
      * @param int $pages
+     *
+     * @return self
      */
-    public function setPages(int $pages)
+    public function setPages(int $pages): self
     {
         $this->pages = $pages;
+
+        return $this;
     }
 
     /**
@@ -171,10 +179,14 @@ final class CourseSearch
 
     /**
      * @param int $count
+     *
+     * @return self
      */
-    public function setCount(int $count)
+    public function setCount(int $count): self
     {
         $this->count = $count;
+
+        return $this;
     }
 
     /**
@@ -187,9 +199,13 @@ final class CourseSearch
 
     /**
      * @param Course[] $courses
+     *
+     * @return self
      */
-    public function setCourses(array $courses)
+    public function setCourses(array $courses): self
     {
         $this->courses = $courses;
+
+        return $this;
     }
 }
