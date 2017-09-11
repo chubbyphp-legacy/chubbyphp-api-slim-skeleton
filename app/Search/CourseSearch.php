@@ -74,7 +74,7 @@ final class CourseSearch
      */
     public function getPage(): int
     {
-        return $this->page;
+        return (int) $this->page;
     }
 
     /**
@@ -94,7 +94,7 @@ final class CourseSearch
      */
     public function getPerPage(): int
     {
-        return $this->perPage;
+        return (int) $this->perPage;
     }
 
     /**
