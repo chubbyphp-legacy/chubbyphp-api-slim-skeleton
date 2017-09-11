@@ -19,7 +19,7 @@ A slim 3 skeleton to build web apis.
  * [chubbyphp/chubbyphp-lazy][4]: ~1.1
  * [chubbyphp/chubbyphp-model][5]: ^3.0.1
  * [chubbyphp/chubbyphp-model-doctrine-dbal][6]: ^1.0.2
- * [chubbyphp/chubbyphp-serialization][7]: ^1.0.2
+ * [chubbyphp/chubbyphp-serialization][7]: ~1.1
  * [chubbyphp/chubbyphp-translation][8]: ^1.1.2
  * [chubbyphp/chubbyphp-validation][9]: ~2.1
  * [chubbyphp/chubbyphp-validation-model][10]: ^1.0.2
@@ -31,20 +31,6 @@ A slim 3 skeleton to build web apis.
  * [symfony/yaml][16]: ~2.7|~3.0
 
 ## Installation
-
-### With vagrant-php
-
-#### Install `create-slim3-project` command
-
-[create-slim3-project][17]
-
-#### Create project
-
-```{.sh}
-create-slim3-project --name=myproject --vagrantIp=10.15.10.15
-```
-
-### With php on host
 
 ```{.sh}
 composer create-project chubbyphp/chubbyphp-api-slim-skeleton myproject dev-master --prefer-dist
