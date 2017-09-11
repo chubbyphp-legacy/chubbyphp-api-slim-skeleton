@@ -9,7 +9,7 @@
     "chubbyphp/chubbyphp-lazy": "~1.1",
     "chubbyphp/chubbyphp-model": "^3.0.1",
     "chubbyphp/chubbyphp-model-doctrine-dbal": "^1.0.2",
-    "chubbyphp/chubbyphp-serialization": "^1.0.2",
+    "chubbyphp/chubbyphp-serialization": "~1.1",
     "chubbyphp/chubbyphp-translation": "^1.1.2",
     "chubbyphp/chubbyphp-validation": "~2.1",
     "chubbyphp/chubbyphp-validation-model": "^1.0.2",
