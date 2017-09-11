@@ -94,6 +94,22 @@ GET http://chubbyphp-api-slim-skeleton.dev/api
 </meta-type>
 ```
 
+#### Yaml
+
+GET http://chubbyphp-api-slim-skeleton.dev/api
+
+```yaml
+_links:
+    self:
+        href: /api
+        method: GET
+    courses:
+        href: /api/courses
+        method: GET
+_type: index
+
+```
+
 ### Courses
 
 #### Json
@@ -214,6 +230,52 @@ GET http://chubbyphp-api-slim-skeleton.dev/api/courses?page=1&perPage=1
         </create>
     </meta-links>
 </meta-type>
+```
+
+#### Yaml
+
+GET http://chubbyphp-api-slim-skeleton.dev/api/courses?page=1&perPage=1
+
+```yaml
+page: 1
+perPage: 1
+sort: null
+order: asc
+_embedded:
+    count: 1
+    pages: 1
+    courses:
+        -
+            id: d480082e-ef4f-43e6-96e8-fd2b9fa613ff
+            name: 'PHP Course'
+            level: 3
+            progress: 0.45
+            active: true
+            documents:
+                -
+                    id: 28031482-6168-47f1-a78b-ea57f38d0ef0
+                    name: 'Choose the right abstraction'
+                    url: 'http://test.com/choose-the-right-abstractions.pdf'
+                    _type: document
+            _links:
+                read:
+                    href: /api/courses/d480082e-ef4f-43e6-96e8-fd2b9fa613ff
+                    method: GET
+                update:
+                    href: /api/courses/d480082e-ef4f-43e6-96e8-fd2b9fa613ff
+                    method: PATCH
+                delete:
+                    href: /api/courses/d480082e-ef4f-43e6-96e8-fd2b9fa613ff
+                    method: DELETE
+            _type: course
+_links:
+    self:
+        href: '/api/courses?page=1&perPage=1&order=asc'
+        method: GET
+    create:
+        href: /api/courses
+        method: POST
+_type: course-search
 ```
 
 [1]: https://github.com/chubbyphp/chubbyphp-api-http
