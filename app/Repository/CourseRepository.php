@@ -69,7 +69,7 @@ final class CourseRepository extends AbstractRepository
         $qb = $this->prepareSearchQuery();
         $qb->select('COUNT(id) AS rowCount');
 
-        return (int) $qb->execute()->fetchColumn();
+        return (int) $qb->execute()->fetch(\PDO::FETCH_COLUMN);
     }
 
     /**
