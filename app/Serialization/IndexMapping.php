@@ -4,24 +4,26 @@ declare(strict_types=1);
 
 namespace Chubbyphp\ApiSkeleton\Serialization;
 
+use Chubbyphp\Serialization\Link\LinkGeneratorInterface;
 use Chubbyphp\Serialization\Mapping\FieldMappingInterface;
 use Chubbyphp\Serialization\Mapping\LinkMapping;
 use Chubbyphp\Serialization\Mapping\LinkMappingInterface;
 use Chubbyphp\Serialization\Mapping\ObjectMappingInterface;
 use Chubbyphp\Serialization\Serializer\Link\CallbackLinkSerializer;
 use Chubbyphp\ApiSkeleton\Search\Index;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 final class IndexMapping implements ObjectMappingInterface
 {
     /**
-     * @var LinkGenerator
+     * @var LinkGeneratorInterface
      */
     private $linkGenerator;
 
     /**
-     * @param LinkGenerator $linkGenerator
+     * @param LinkGeneratorInterface $linkGenerator
      */
-    public function __construct(LinkGenerator $linkGenerator)
+    public function __construct(LinkGeneratorInterface $linkGenerator)
     {
         $this->linkGenerator = $linkGenerator;
     }
@@ -64,11 +66,11 @@ final class IndexMapping implements ObjectMappingInterface
     public function getLinkMappings(): array
     {
         return [
-            new LinkMapping('self', new CallbackLinkSerializer(function () {
-                return $this->linkGenerator->generateLink('index');
+            new LinkMapping('self', new CallbackLinkSerializer(function (Request $request) {
+                return $this->linkGenerator->generateLink($request, 'index');
             })),
-            new LinkMapping('courses', new CallbackLinkSerializer(function () {
-                return $this->linkGenerator->generateLink('course_search');
+            new LinkMapping('courses', new CallbackLinkSerializer(function (Request $request) {
+                return $this->linkGenerator->generateLink($request, 'course_search');
             })),
         ];
     }

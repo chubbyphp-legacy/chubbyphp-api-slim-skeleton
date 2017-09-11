@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chubbyphp\ApiSkeleton\Serialization;
 
 use Chubbyphp\Serialization\Accessor\PropertyAccessor;
+use Chubbyphp\Serialization\Link\LinkGeneratorInterface;
 use Chubbyphp\Serialization\Link\NullLink;
 use Chubbyphp\Serialization\Mapping\FieldMapping;
 use Chubbyphp\Serialization\Mapping\FieldMappingInterface;
@@ -20,14 +21,14 @@ use Chubbyphp\ApiSkeleton\Search\CourseSearch;
 final class CourseSearchMapping implements ObjectMappingInterface
 {
     /**
-     * @var LinkGenerator
+     * @var LinkGeneratorInterface
      */
     private $linkGenerator;
 
     /**
-     * @param LinkGenerator $linkGenerator
+     * @param LinkGeneratorInterface $linkGenerator
      */
-    public function __construct(LinkGenerator $linkGenerator)
+    public function __construct(LinkGeneratorInterface $linkGenerator)
     {
         $this->linkGenerator = $linkGenerator;
     }
@@ -87,7 +88,7 @@ final class CourseSearchMapping implements ObjectMappingInterface
         return [
             new LinkMapping('self', new CallbackLinkSerializer(
                 function (Request $request, CourseSearch $courseSearch, array $fields) {
-                    return $this->linkGenerator->generateLink('course_search', [], $fields);
+                    return $this->linkGenerator->generateLink($request, 'course_search', [], $fields);
                 }
             )),
             new LinkMapping('prev', new CallbackLinkSerializer(
@@ -95,7 +96,7 @@ final class CourseSearchMapping implements ObjectMappingInterface
                     if ($courseSearch->getPage() > 1) {
                         $fields['page'] -= 1;
 
-                        return $this->linkGenerator->generateLink('course_search', [], $fields);
+                        return $this->linkGenerator->generateLink($request, 'course_search', [], $fields);
                     }
 
                     return new NullLink();
@@ -106,7 +107,7 @@ final class CourseSearchMapping implements ObjectMappingInterface
                     if ($fields['page'] < $courseSearch->getPages()) {
                         $fields['page'] += 1;
 
-                        return $this->linkGenerator->generateLink('course_search', [], $fields);
+                        return $this->linkGenerator->generateLink($request, 'course_search', [], $fields);
                     }
 
                     return new NullLink();
@@ -114,7 +115,7 @@ final class CourseSearchMapping implements ObjectMappingInterface
             )),
             new LinkMapping('create', new CallbackLinkSerializer(
                 function (Request $request, CourseSearch $courseSearch, array $fields) {
-                    return $this->linkGenerator->generateLink('course_create');
+                    return $this->linkGenerator->generateLink($request, 'course_create');
                 }
             )),
         ];
