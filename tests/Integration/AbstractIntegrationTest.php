@@ -31,7 +31,11 @@ abstract class AbstractIntegrationTest extends TestCase
             $this->curl = $this->initializeCurl();
         }
 
-        curl_setopt($this->curl, CURLOPT_URL, sprintf('http://localhost:%d%s', PhpServerListener::PHP_SERVER_PORT, $resource));
+        curl_setopt($this->curl, CURLOPT_URL, sprintf(
+            'http://localhost:%d/index_test.php%s',
+            PhpServerListener::PHP_SERVER_PORT,
+            $resource
+        ));
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, $curlHeaders);
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $body);

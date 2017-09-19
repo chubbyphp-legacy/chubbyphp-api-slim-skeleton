@@ -21,11 +21,11 @@ class IndexControllerTest extends AbstractIntegrationTest
         self::assertEquals([
             '_links' => [
                 'self' => [
-                    'href' => '/api',
+                    'href' => '/index_test.php/api',
                     'method' => 'GET',
                 ],
                 'courses' => [
-                    'href' => '/api/courses',
+                    'href' => '/index_test.php/api/courses',
                     'method' => 'GET',
                 ],
             ],
