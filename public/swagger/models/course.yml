@@ -1,0 +1,331 @@
+paths:
+    courses:
+        get:
+            tags:
+              - course
+            summary: Get courses
+            produces:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            parameters:
+                - in: query
+                  name: page
+                  description: The wished page
+                  required: false
+                  type: integer
+                - in: query
+                  name: perPage
+                  description: The count of courses per page
+                  required: false
+                  type: integer
+                - in: query
+                  name: sort
+                  description: 'The way so sort for example: name'
+                  required: false
+                  type: string
+                - in: query
+                  name: order
+                  description: The way to order asc or desc
+                  required: false
+                  type: string
+            responses:
+                200:
+                    description: Course returned
+                    schema:
+                        $ref: '#/definitions/CourseSearchResponse'
+                406:
+                    description: Unsupported or Missing Accept header
+                422:
+                    description: Invalid course search data
+                    schema:
+                        $ref: '../errors.yml#/definitions/SearchValidationErrorResponse'
+        post:
+            tags:
+                - course
+            summary: Add a course
+            consumes:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            produces:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            parameters:
+                - in: body
+                  name: body
+                  description: Course object that needs to be added
+                  required: true
+                  schema:
+                      $ref: '#/definitions/CourseRequest'
+            responses:
+                201:
+                    description: Course created
+                    schema:
+                        $ref: '#/definitions/CourseResponse'
+                400:
+                    description: Not deserializable body for the given Content-Type header
+                    schema:
+                        $ref: '../errors.yml#/definitions/BodyNotDeserializableResponse'
+                406:
+                    description: Unsupported or Missing Accept header
+                415:
+                    description: Unsupported or Missing Content-Type header
+                    schema:
+                        $ref: '../errors.yml#/definitions/ContentTypeNotSupportedResponse'
+                422:
+                    description: Invalid course data
+                    schema:
+                        $ref: '../errors.yml#/definitions/ValidationErrorResponse'
+    courses_id:
+        get:
+            tags:
+              - course
+            summary: Get a course
+            produces:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            parameters:
+                - in: path
+                  name: id
+                  description: Id of course to return
+                  required: true
+                  type: string
+            responses:
+                200:
+                    description: Course returned
+                    schema:
+                        $ref: '#/definitions/CourseResponse'
+                404:
+                    description: There is no course with the given id
+                    schema:
+                        $ref: '../errors.yml#/definitions/ResourceNotFoundResponse'
+                406:
+                    description: Unsupported or Missing Accept header
+        patch:
+            tags:
+                - course
+            summary: Update a course
+            consumes:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            produces:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            parameters:
+                - in: path
+                  name: id
+                  description: Id of course to return
+                  required: true
+                  type: string
+                - in: body
+                  name: body
+                  description: Course object that needs to be added
+                  required: true
+                  schema:
+                      $ref: '#/definitions/CourseRequest'
+            responses:
+                200:
+                    description: Course updated
+                    schema:
+                        $ref: '#/definitions/CourseResponse'
+                400:
+                    description: Not deserializable body for the given Content-Type header
+                    schema:
+                        $ref: '../errors.yml#/definitions/BodyNotDeserializableResponse'
+                404:
+                    description: There is no course with the given id
+                    schema:
+                        $ref: '../errors.yml#/definitions/ResourceNotFoundResponse'
+                406:
+                    description: Unsupported or Missing Accept header
+                415:
+                    description: Unsupported or Missing Content-Type header
+                    schema:
+                        $ref: '../errors.yml#/definitions/ContentTypeNotSupportedResponse'
+                422:
+                    description: Invalid course data
+                    schema:
+                        $ref: '../errors.yml#/definitions/ValidationErrorResponse'
+        delete:
+            tags:
+                - course
+            summary: Delete a course
+            produces:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            parameters:
+                - in: path
+                  name: id
+                  description: Id of course to return
+                  required: true
+                  type: string
+            responses:
+                204:
+                    description: No content
+                404:
+                    description: There is no course with the given id
+                    schema:
+                        $ref: '../errors.yml#/definitions/ResourceNotFoundResponse'
+                406:
+                    description: Unsupported or Missing Accept header
+definitions:
+    CourseRequest:
+        type: object
+        xml:
+            name: meta-type
+        properties:
+            name:
+                type: string
+                example: PHP for beginners
+            level:
+                type: integer
+                enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+            progess:
+                type: float
+                example: 0.4
+            active:
+                type: boolean
+                example: true
+            documents:
+                type: array
+                xml:
+                    name: documents
+                    wrapped: true
+                items:
+                    type: object
+                    properties:
+                        name:
+                            type: string
+                            example: Beginners-Guide
+                        url:
+                            type: string
+                            example: http://example.com/downloads/Beginners-Guide.pdf
+            _type:
+                type: string
+                example: course
+                xml:
+                    name: type
+                    attribute: true
+    CourseResponse:
+        allOf:
+            - type: object
+              properties:
+                  id:
+                      type: string
+                      example: 2b275cc8-698e-4da7-bd51-d710461cd074
+            - $ref: '#/definitions/CourseRequest'
+            - type: object
+              properties:
+                  _links:
+                      type: object
+                      xml:
+                          name: meta-links
+                      properties:
+                          read:
+                              type: object
+                              properties:
+                                  href:
+                                      type: string
+                                      example: /api/courses/2b275cc8-698e-4da7-bd51-d710461cd074
+                                  method:
+                                      type: string
+                                      example: GET
+                          update:
+                              type: object
+                              properties:
+                                  href:
+                                      type: string
+                                      example: /api/courses/2b275cc8-698e-4da7-bd51-d710461cd074
+                                  method:
+                                      type: string
+                                      example: PATCH
+                          delete:
+                              type: object
+                              properties:
+                                  href:
+                                      type: string
+                                      example: /api/courses/2b275cc8-698e-4da7-bd51-d710461cd074
+                                  method:
+                                      type: string
+                                      example: DELETE
+    CourseSearchResponse:
+        type: object
+        xml:
+            name: meta-type
+        properties:
+            page:
+                type: integer
+                example: 1
+            perPage:
+                type: integer
+                example: 20
+            sort:
+                type: string
+                example: email
+            order:
+                type: string
+                example: asc
+            _embedded:
+                type: object
+                xml:
+                    name: meta-embedded
+                properties:
+                    count:
+                        type: integer
+                        example: 1
+                    pages:
+                        type: integer
+                        example: 1
+                    courses:
+                        type: array
+                        xml:
+                            name: courses
+                            wrapped: true
+                        items:
+                            $ref: '#/definitions/CourseResponse'
+            _links:
+                type: object
+                xml:
+                    name: meta-links
+                properties:
+                    self:
+                        type: object
+                        properties:
+                            href:
+                                type: string
+                                example: /api/courses?page=1&perPage=1&order=asc
+                            method:
+                                type: string
+                                example: GET
+                    create:
+                        type: object
+                        properties:
+                            href:
+                                type: string
+                                example: /api/courses
+                            method:
+                                type: string
+                                example: POST
+            _type:
+                type: string
+                example: course-search
+                xml:
+                    name: type
+                    attribute: true

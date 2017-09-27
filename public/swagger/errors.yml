@@ -1,0 +1,173 @@
+definitions:
+    BodyNotDeserializableResponse:
+        type: object
+        xml:
+            name: meta-type
+        properties:
+            scope:
+                type: string
+                example: body
+            key:
+                type: string
+                example: body_not_deserializable
+            detail:
+                type: string
+                example: the given body is not deserializable with given content-type
+            reference:
+                type: string
+                example: deserialize
+            arguments:
+                type: object
+                properties:
+                    contentType:
+                        type: string
+                        example: application/json
+                    body:
+                        type: string
+                        example: '{{'key': 'value}'
+            _type:
+                type: string
+                example: error
+                xml:
+                    name: type
+                    attribute: true
+    ContentTypeNotSupportedResponse:
+        type: object
+        xml:
+            name: meta-type
+        properties:
+            scope:
+                type: string
+                example: header
+            key:
+                type: string
+                example: contentype_not_supported
+            detail:
+                type: string
+                example: the given content type is not supported
+            reference:
+                type: string
+                example: content-type
+            arguments:
+                type: object
+                properties:
+                    contentType:
+                        type: string
+                        example: application/json2
+                    supportedContentTypes:
+                        type: array
+                        xml:
+                            name: supportedContentTypes
+                            wrapped: true
+                        items:
+                            type: string
+                            example: application/json
+                            xml:
+                                name: supportedContentType
+            _type:
+                type: string
+                example: error
+                xml:
+                    name: type
+                    attribute: true
+    ResourceNotFoundResponse:
+        type: object
+        xml:
+            name: meta-type
+        properties:
+            scope:
+                type: string
+                example: resource
+            key:
+                type: string
+                example: resource_not_found
+            detail:
+                type: string
+                example: the wished resource does not exist
+            reference:
+                type: string
+                example: model
+            arguments:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        example: 1bffeb74-2111-41b4-a730-0eafae4c43e1
+            _type:
+                type: string
+                example: error
+                xml:
+                    name: type
+                    attribute: true
+    SearchValidationErrorResponse:
+        type: object
+        xml:
+            name: meta-type
+        properties:
+            scope:
+                type: string
+                example: query
+            key:
+                type: string
+                example: validation_error
+            detail:
+                type: string
+                example: there where validation errors while validating the object
+            reference:
+                type: string
+                example: model-search
+            arguments:
+                type: object
+                properties:
+                    gender:
+                        type: array
+                        xml:
+                            name: page
+                            wrapped: true
+                        items:
+                            type: string
+                            example: The input value adsd is not numeric
+                            xml:
+                                name: page
+            _type:
+                type: string
+                example: error
+                xml:
+                    name: type
+                    attribute: true
+    ValidationErrorResponse:
+        type: object
+        xml:
+            name: meta-type
+        properties:
+            scope:
+                type: string
+                example: body
+            key:
+                type: string
+                example: validation_error
+            detail:
+                type: string
+                example: there where validation errors while validating the object
+            reference:
+                type: string
+                example: model
+            arguments:
+                type: object
+                properties:
+                    gender:
+                        type: array
+                        xml:
+                            name: name
+                            wrapped: true
+                        items:
+                            type: string
+                            example: 'The input is blank, which means empty string, array or \stdClass'
+                            xml:
+                                name: name
+            _type:
+                type: string
+                example: error
+                xml:
+                    name: type
+                    attribute: true

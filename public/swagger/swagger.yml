@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+    description: ''
+    version: 1.0.0
+    title: chubbyphp-api-slim-skeleton
+basePath: /api
+schemes:
+    - http
+    - https
+paths:
+    '':
+        get:
+            tags:
+              - ''
+            summary: Get entry points
+            produces:
+                - application/json
+                - application/x-www-form-urlencoded
+                - application/xml
+                - application/x-yaml
+            responses:
+                200:
+                    description: Entry points
+                406:
+                    description: Unsupported or Missing Accept header
+    /courses:
+        $ref: 'models/course.yml#/paths/courses'
+    /courses/{id}:
+        $ref: 'models/course.yml#/paths/courses_id'
+definitions:
+    CourseRequest:
+        $ref: 'models/course.yml#/definitions/CourseRequest'
+    CourseResponse:
+        $ref: 'models/course.yml#/definitions/CourseResponse'
+    CourseSearchResponse:
+        $ref: 'models/course.yml#/definitions/CourseSearchResponse'
+    BodyNotDeserializableResponse:
+        $ref: 'errors.yml#/definitions/BodyNotDeserializableResponse'
+    ContentTypeNotSupportedResponse:
+        $ref: 'errors.yml#/definitions/ContentTypeNotSupportedResponse'
+    ResourceNotFoundResponse:
+        $ref: 'errors.yml#/definitions/ResourceNotFoundResponse'
+    SearchValidationErrorResponse:
+        $ref: 'errors.yml#/definitions/SearchValidationErrorResponse'
+    ValidationErrorResponse:
+        $ref: 'errors.yml#/definitions/ValidationErrorResponse'
