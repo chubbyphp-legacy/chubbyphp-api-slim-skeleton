@@ -43,6 +43,8 @@ class CourseSearchMappingTest extends AbstractMappingTest
             ),
             new FieldMapping('sort'),
             new FieldMapping('order'),
+            new FieldMapping('count'),
+            new FieldMapping('pages'),
         ], $mapping->getFieldMappings());
     }
 
@@ -51,8 +53,6 @@ class CourseSearchMappingTest extends AbstractMappingTest
         $mapping = new CourseSearchMapping($this->getLinkGenerator());
 
         self::assertEquals([
-            new FieldMapping('count'),
-            new FieldMapping('pages'),
             new FieldMapping('courses', new CollectionFieldSerializer(new PropertyAccessor('courses'))),
         ], $mapping->getEmbeddedFieldMappings());
     }

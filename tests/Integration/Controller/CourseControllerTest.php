@@ -22,10 +22,11 @@ class CourseControllerTest extends AbstractIntegrationTest
         self::assertSame(20, $data['perPage']);
         self::assertNull($data['sort']);
         self::assertSame('asc', $data['order']);
+        self::assertSame(0, $data['count']);
+        self::assertSame(0, $data['pages']);
 
         self::assertArrayHasKey('_embedded', $data);
-        self::assertArrayHasKey('count', $data['_embedded']);
-        self::assertArrayHasKey('pages', $data['_embedded']);
+
         self::assertArrayHasKey('courses', $data['_embedded']);
     }
 
