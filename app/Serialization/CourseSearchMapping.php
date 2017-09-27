@@ -65,6 +65,8 @@ final class CourseSearchMapping implements ObjectMappingInterface
             ),
             new FieldMapping('sort'),
             new FieldMapping('order'),
+            new FieldMapping('count'),
+            new FieldMapping('pages'),
         ];
     }
 
@@ -74,8 +76,6 @@ final class CourseSearchMapping implements ObjectMappingInterface
     public function getEmbeddedFieldMappings(): array
     {
         return [
-            new FieldMapping('count'),
-            new FieldMapping('pages'),
             new FieldMapping('courses', new CollectionFieldSerializer(new PropertyAccessor('courses'))),
         ];
     }
@@ -88,6 +88,8 @@ final class CourseSearchMapping implements ObjectMappingInterface
         return [
             new LinkMapping('self', new CallbackLinkSerializer(
                 function (Request $request, CourseSearch $courseSearch, array $fields) {
+                    unset($fields['count'], $fields['pages']);
+
                     return $this->linkGenerator->generateLink($request, 'course_search', [], $fields);
                 }
             )),
@@ -95,6 +97,8 @@ final class CourseSearchMapping implements ObjectMappingInterface
                 function (Request $request, CourseSearch $courseSearch, array $fields) {
                     if ($courseSearch->getPage() > 1) {
                         $fields['page'] -= 1;
+
+                        unset($fields['count'], $fields['pages']);
 
                         return $this->linkGenerator->generateLink($request, 'course_search', [], $fields);
                     }
@@ -106,6 +110,8 @@ final class CourseSearchMapping implements ObjectMappingInterface
                 function (Request $request, CourseSearch $courseSearch, array $fields) {
                     if ($fields['page'] < $courseSearch->getPages()) {
                         $fields['page'] += 1;
+
+                        unset($fields['count'], $fields['pages']);
 
                         return $this->linkGenerator->generateLink($request, 'course_search', [], $fields);
                     }

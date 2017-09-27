@@ -282,17 +282,17 @@ definitions:
             order:
                 type: string
                 example: asc
+            count:
+                type: integer
+                example: 1
+            pages:
+                type: integer
+                example: 1
             _embedded:
                 type: object
                 xml:
                     name: meta-embedded
                 properties:
-                    count:
-                        type: integer
-                        example: 1
-                    pages:
-                        type: integer
-                        example: 1
                     courses:
                         type: array
                         xml:
