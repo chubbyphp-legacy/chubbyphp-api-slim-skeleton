@@ -1,3 +1,5 @@
+DEPRECATED use https://github.com/chubbyphp/petstore
+
 # chubbyphp/chubbyphp-api-slim-skeleton
 
 [![Build Status](https://api.travis-ci.org/chubbyphp/chubbyphp-api-slim-skeleton.png?branch=master)](https://travis-ci.org/chubbyphp/chubbyphp-api-slim-skeleton)
